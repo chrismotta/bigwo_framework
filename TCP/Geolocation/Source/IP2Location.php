@@ -23,12 +23,11 @@
 
 		public function detect ( $ip, array $params = null )
 		{
-
 			$this->_data = $this->_db->lookup( 
 				$ip, 
 				array(
-					\IP2Location::CARRIER,
-					\IP2Location::COUNTRY
+					\IP2Location\Database::MOBILE_CARRIER_NAME,
+					\IP2Location\Database::COUNTRY_NAME
 				)
 			);
 
