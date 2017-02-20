@@ -53,25 +53,40 @@
 
                 public function getOS ( )
                 {
-                	return $this->_os['name'];
+                        if ( isset( $this->_os['name']) )
+                	       return $this->_os['name'];
+                        else
+                                return null;
                 }
 
 
                 public function getOSVersion ( )
                 {
-                	return $this->_os['version'];
+                        if ( isset( $this->_os['name']) )
+                	       return $this->_os['version'];
+                        else
+                                return null;
+
                 }
 
 
                 public function getBrowser ( )
                 {
-                	return $this->_cl['name'];
+                        if ( isset( $this->_os['name']) )
+                	       return $this->_cl['name'];
+                        else
+                                return null;
+
                 }
 
 
                 public function getBrowserVersion ( )
                 {
-                	return $this->_cl['version'] ;
+                        if ( isset( $this->_os['name']) )
+                	       return $this->_cl['version'] ;
+                        else
+                                return null;
+                        
                 }
 
 	}
