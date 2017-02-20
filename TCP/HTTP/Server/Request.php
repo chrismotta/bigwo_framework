@@ -98,8 +98,6 @@
                 \array_shift($this->_pathElements);
 
 
-var_dump($this->_pathElements);
-
             if ( isset($_SERVER['HTTP_USER_AGENT']) )
             {
                 $this->_agent = $_SERVER['HTTP_USER_AGENT'];
@@ -136,9 +134,11 @@ var_dump($this->_pathElements);
                     switch( $this->getMethod() )
                     {
                         case 'POST':
+                        case 'post':
                             $this->_data = $_POST;
                         break;
                         case 'GET':
+                        case 'get':
                             $this->_data = $_GET;
                         break;
                         default:
@@ -150,23 +150,7 @@ var_dump($this->_pathElements);
                     }                  
                 break;
             }
-
-
-			switch( strtolower( $this->getMethod() ) )
-			{
-                case 'post':
-					$this->_data = $_POST;
-				break;
-                case 'get':
-					$this->_data = $_GET;
-				break;
-				default:
-					$data = array();
-                    
-					\parse_str( file_get_contents("php://input"), $data );					
-					$this->_data = $data;
-				break;
-			}                     
+            
 		}
 
 
