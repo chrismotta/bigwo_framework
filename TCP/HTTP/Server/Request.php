@@ -87,6 +87,7 @@
 
             $this->_pathElements = \preg_split( '(\/|\?)', $this->_uri, -1 );
 
+
             $finalElement = \end($this->_pathElements);
             if ( $finalElement=='' || ($this->_query && $this->_query == $finalElement) )
             {
@@ -96,6 +97,8 @@
             if ( $this->_pathElements[0] == '' )
                 \array_shift($this->_pathElements);
 
+
+var_dump($this->_pathElements);
 
             if ( isset($_SERVER['HTTP_USER_AGENT']) )
             {
