@@ -87,7 +87,8 @@
 
             $this->_pathElements = \preg_split( '(\/|\?)', $this->_uri, -1 );
 
-            if ( $this->_query && $this->_query == \end($this->_pathElements) )
+            $finalElement = \end($this->_pathElements);
+            if ( $finalElement=='' || ($this->_query && $this->_query == $finalElement) )
             {
                 \array_pop($this->_pathElements);
             }

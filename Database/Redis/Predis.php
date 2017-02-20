@@ -3,6 +3,7 @@
 	namespace Aff\Framework\Database\Redis;
 
 	use Aff\Framework;
+
 	require_once( '..'.\DIRECTORY_SEPARATOR.'vendor'.\DIRECTORY_SEPARATOR.'autoload.php');
 
 	class Predis extends Framework\ObjectAbstract implements Framework\Database\KeyValueInterface
@@ -11,7 +12,7 @@
 		private $_predis;
 
 
-		public function __construct ( $params, $options = null )
+		public function __construct ( $params = null, $options = null )
 		{
 			$this->_predis = new \Predis\Client( $params, $options );
 		}
@@ -38,7 +39,12 @@
 		public function increment ( $key, $val = null )
 		{
 			if ( $val )
-				$this->_predis->incrby( $key, $val );
+			{
+				if ( \is_float($val) )
+					$this->_predis->executeRaw(['INCRBYFLOAT', $key, $val]);
+				else
+					$this->_predis->incrby( $key, $val );
+			}
 			else
 				$this->_predis->incr( $key );
 		}

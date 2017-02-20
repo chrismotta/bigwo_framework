@@ -53,13 +53,13 @@
 
                 public function getOS ( )
                 {
-                	return $this->_os['os_name'];
+                	return $this->_os['name'];
                 }
 
 
                 public function getOSVersion ( )
                 {
-                	return $this->_os['os_version'];
+                	return $this->_os['version'];
                 }
 
 

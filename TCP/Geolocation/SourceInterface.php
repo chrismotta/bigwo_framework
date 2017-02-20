@@ -8,6 +8,7 @@
 
 		public function detect ( $ip, array $params = null );
 
+		public function getConnectionType ( ); // return wifi, 3g, etc...
 
 		public function getCountryCode ( );
 
