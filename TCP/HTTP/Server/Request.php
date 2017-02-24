@@ -48,7 +48,7 @@
             { 
                 $this->_headers = $_SERVER;
             } 
-				
+			var_dump($this->_headers);
 
 			$this->_timestamp = $_SERVER['REQUEST_TIME'];
             $this->_cookies = $_COOKIE;
