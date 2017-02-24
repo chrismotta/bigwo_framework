@@ -45,10 +45,17 @@
                 $this->_headers = \getallheaders();
             }
             else
-            { 
-                $this->_headers = $_SERVER;
-            } 
-			var_dump($this->_headers);
+            {
+                $this->_headers = [];
+
+                foreach ( $_SERVER as $name => $value ) 
+                {
+                    if ( substr($name, 0, 5) == 'HTTP_' ) 
+                    {
+                        $this->_headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+                    }
+                }               
+            }
 
 			$this->_timestamp = $_SERVER['REQUEST_TIME'];
             $this->_cookies = $_COOKIE;
@@ -177,6 +184,12 @@
 		{
 			return $this->_data;
 		}
+
+
+        public function getData ( )
+        {
+            return $this->_data;
+        }        
 
 
 		public function getParam ( $name )
