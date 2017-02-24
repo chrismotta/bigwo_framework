@@ -46,34 +46,32 @@
             }
             else
             { 
-                function getallheaders() 
+                foreach ( $_SERVER as $name => $value ) 
                 { 
-                    $this->_headers = '';
-
-                    foreach ( $_SERVER as $name => $value ) 
-                    { 
-                       if ( \substr( $name, 0, 5 ) == 'HTTP_') 
-                       { 
-                            $index = \str_replace(  
-                                ' ',
-                                '-',
-                                \ucwords(
-                                    \strtolower(
-                                        \str_replace(                                            
-                                            '_',
-                                            ' ',
-                                            \substr($name, 5 )
-                                        )
+                   if ( \substr( $name, 0, 5 ) == 'HTTP_') 
+                   { 
+                        $name = \str_replace(  
+                            ' ',
+                            '-',
+                            \ucwords(
+                                \strtolower(
+                                    \str_replace(                                            
+                                        '_',
+                                        ' ',
+                                        \substr($name, 5 )
                                     )
                                 )
-                            );
-                       } 
-                    }
+                            )
+                        );
+                   }
 
-                    return $headers; 
-                } 
+                   $this->_headers[$name] = $value; 
+                }
+                echo 'aca';
+
             } 
-						
+				
+                var_dump($this->_headers);		
 			$this->_timestamp = \time();
             $this->_cookies = $_COOKIE;
             $this->_query = $_SERVER['QUERY_STRING'];            
