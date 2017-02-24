@@ -184,12 +184,7 @@
 		{
 			return $this->_data;
 		}
-
-
-        public function getData ( )
-        {
-            return $this->_data;
-        }        
+     
 
 
 		public function getParam ( $name )
