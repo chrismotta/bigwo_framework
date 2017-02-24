@@ -46,33 +46,11 @@
             }
             else
             { 
-                foreach ( $_SERVER as $name => $value ) 
-                { 
-                   if ( \substr( $name, 0, 5 ) == 'HTTP_') 
-                   { 
-                        $name = \str_replace(  
-                            ' ',
-                            '-',
-                            \ucwords(
-                                \strtolower(
-                                    \str_replace(                                            
-                                        '_',
-                                        ' ',
-                                        \substr($name, 5 )
-                                    )
-                                )
-                            )
-                        );
-                   }
-
-                   $this->_headers[$name] = $value; 
-                }
-                echo 'aca';
-
+                $this->_headers = $_SERVER;
             } 
 				
-                var_dump($this->_headers);		
-			$this->_timestamp = \time();
+
+			$this->_timestamp = $_SERVER['REQUEST_TIME'];
             $this->_cookies = $_COOKIE;
             $this->_query = $_SERVER['QUERY_STRING'];            
             $this->_method = strtoupper( $_SERVER['REQUEST_METHOD'] );
