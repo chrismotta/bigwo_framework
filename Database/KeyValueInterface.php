@@ -8,9 +8,19 @@
 	interface KeyValueInterface extends ClientInterface
 	{
 
-		public function set ( $key, $value, array $params = null );
+		public function set ( $key, $value );
 
 		public function get ( $key );
+
+		public function getFromListByRange ( $key, $start = 0, $end = -1 );
+
+		public function getFromListByPosition ( $key, $pos );
+
+		public function appendToList ( $key, $value );
+
+		public function prependToList ( $key, $value );
+
+		public function getListLength ( $key );		
 
 		public function exists ( $key );
 

@@ -18,7 +18,7 @@
 		}
 
 
-		public function set ( $key, $value, array $params = null )
+		public function set ( $key, $value )
 		{
 			$this->_predis->set( $key, $value );
 		}
@@ -27,6 +27,36 @@
 		public function get ( $key )
 		{
 			return $this->_predis->get( $key );
+		}
+
+
+		public function getFromListByRange ( $key, $start = 0, $end = -1 )
+		{
+			return $this->_predis->lrange( $key, $start, $end );
+		}
+
+
+		public function getFromListByPosition ( $key, $pos )
+		{
+			return $this->_predis->lindex( $key, $pos );
+ 		}
+
+
+		public function appendToList ( $key, $value )
+		{
+			$this->_predis->rpush( $key, $value );
+		}
+
+
+		public function prependToList ( $key, $value )
+		{
+			$this->_predis->lpush( $key, $value );
+		}
+
+
+		public function getListLength ( $key )
+		{
+			$this->_predis->llen( $key );
 		}
 
 
@@ -67,12 +97,17 @@
 
 		public function expireAt ( $key, $timestamp )
 		{
+			$this->_predis->expireat( $key,  $timestamp );
 		}
 
 
 		public function ttl ( $key, $seconds = null )
 		{
-		}		
+			if ( $timestamp )
+				$this->_predis->expire( $key,  $timestamp );
+			else
+				$this->_predis->ttl( $key,  $timestamp );
+		}
 
 
 		public function flush ( )
