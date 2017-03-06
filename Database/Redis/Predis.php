@@ -197,7 +197,7 @@
 
 		public function addToSet ( $key, $value )
 		{
-			$this->_predis->sadd ( $key, $values );
+			$this->_predis->sadd ( $key, $value );
 		}
 
 
