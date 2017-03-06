@@ -3,7 +3,6 @@
 	namespace Aff\Framework\Database;
 
 
-
 	interface InMemoryInterface
 	{
 
