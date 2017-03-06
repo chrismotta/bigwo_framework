@@ -197,7 +197,7 @@
 
 		public function addToSet ( $key, $value )
 		{
-			$this->_predis->sadd ( func_get_args() );
+			$this->_predis->sadd ( $key, $values );
 		}
 
 
@@ -222,7 +222,7 @@
 
 		// SORTED SETS
 
-		public function addToSortedSet ( $key, $values )
+		public function addToSortedSet ( $key, $value )
 		{
 			$this->_predis->zadd ( $key, $values );
 		}
