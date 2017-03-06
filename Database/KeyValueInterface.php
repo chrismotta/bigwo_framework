@@ -2,8 +2,6 @@
 
 	namespace Aff\Framework\Database;
 
-	use Aff\Framework;
-
 
 	interface KeyValueInterface extends ClientInterface
 	{
@@ -24,11 +22,11 @@
 
 
 
-		// LISTS
+		// LISTS (repeated values)
 
-		public function getFromListByRange ( $key, $start = 0, $stop = -1 );
+		public function getList ( $key, $start = 0, $stop = -1 );
 
-		public function getFromListByPosition ( $key, $pos );
+		public function getListElementByPosition ( $key, $pos );
 
 		public function appendToList ( $key, $value );
 
@@ -38,7 +36,7 @@
 
 
 
-		// SETS
+		// SETS (unique values)
 
 		public function getSet ( $key );
 
@@ -49,20 +47,6 @@
 		public function removeFromSet ( $key, $value );
 
 		public function getSetLength ( $key );
-
-
-
-		// ORDERED SETS
-		
-		public function getFromSortedSetByScore( $key,  $start, $end );
-
-		public function addToSortedSet ( $key, $value );
-
-		public function isInSortedSet ( $key, $value );
-
-		public function removeFromSortedSet ( $key, $value );
-
-		public function getSortedSetLength ( $key );
 
 
 
@@ -80,22 +64,11 @@
 
 		public function getMapFieldCount ( $key );
 
-		public function incrementMapValue ( $key, $field, $by = 1 );
+		public function incrementMapField ( $key, $field, $by = 1 );
 
 		public function removeMapField ( $key, $field );
 
 		public function getMapFieldLength ( $key, $field );
-
-
-
-
-		// GENERAL
-
-		public function flush ( );
-
-		public function expireAt ( $key, $timestamp );
-
-		public function ttl ( $key, $seconds = null );
 
 	}
 	

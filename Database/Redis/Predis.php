@@ -6,7 +6,7 @@
 
 	require_once( '..'.\DIRECTORY_SEPARATOR.'vendor'.\DIRECTORY_SEPARATOR.'autoload.php');
 
-	class Predis extends Framework\ObjectAbstract implements Framework\Database\KeyValueInterface
+	class Predis extends Framework\ObjectAbstract implements ClientInterface
 	{
 
 		private $_predis;
@@ -17,6 +17,36 @@
 			$this->_predis = new \Predis\Client( $params, $options );
 		}
 
+
+		public function expireAt ( $key, $timestamp )
+		{
+			$this->_predis->expireat( $key,  $timestamp );
+		}
+
+
+		public function ttl ( $key, $seconds = null )
+		{
+			if ( $timestamp )
+				$this->_predis->expire( $key,  $timestamp );
+			else
+				$this->_predis->ttl( $key,  $timestamp );
+		}
+
+
+		public function flush ( )
+		{
+			$this->_predis->flushall();
+		}
+
+
+		public function flushDb ( )
+		{
+			$this->_predis->flushdb();
+		}	
+
+
+
+		// VALUES
 
 		public function set ( $key, $value )
 		{
@@ -29,35 +59,6 @@
 			return $this->_predis->get( $key );
 		}
 
-
-		public function getFromListByRange ( $key, $start = 0, $stop = -1 )
-		{
-			return $this->_predis->lrange( $key, $start, $stop );
-		}
-
-
-		public function getFromListByPosition ( $key, $pos )
-		{
-			return $this->_predis->lindex( $key, $pos );
- 		}
-
-
-		public function appendToList ( $key, $value )
-		{
-			$this->_predis->rpush( $key, $value );
-		}
-
-
-		public function prependToList ( $key, $value )
-		{
-			$this->_predis->lpush( $key, $value );
-		}
-
-
-		public function getListLength ( $key )
-		{
-			$this->_predis->llen( $key );
-		}
 
 
 		public function exists ( $key )
@@ -95,32 +96,42 @@
 		}
 
 
-		public function expireAt ( $key, $timestamp )
+
+		// LISTS
+
+		public function getList ( $key, $start = 0, $stop = -1 )
 		{
-			$this->_predis->expireat( $key,  $timestamp );
+			return $this->_predis->lrange( $key, $start, $stop );
 		}
 
 
-		public function ttl ( $key, $seconds = null )
+		public function getListElementByPosition ( $key, $pos )
 		{
-			if ( $timestamp )
-				$this->_predis->expire( $key,  $timestamp );
-			else
-				$this->_predis->ttl( $key,  $timestamp );
+			return $this->_predis->lindex( $key, $pos );
+ 		}
+
+
+		public function appendToList ( $key, $value )
+		{
+			$this->_predis->rpush( $key, $value );
 		}
 
 
-		public function flush ( )
+		public function prependToList ( $key, $value )
 		{
-			$this->_predis->flushall();
+			$this->_predis->lpush( $key, $value );
 		}
 
 
-		public function flushDb ( )
+		public function getListLength ( $key )
 		{
-			$this->_predis->flushdb();
-		}		
+			$this->_predis->llen( $key );
+		}
 
+
+
+	
+		// MAPS
 
 		public function setMap ( $key, array $data )
 		{
@@ -158,7 +169,7 @@
 		}
 
 
-		public function incrementMapValue ( $key, $field, $by = 1 )
+		public function incrementMapField ( $key, $field, $by = 1 )
 		{
 			$this->_predis->hincrby( $key, $field, $by );
 		}
@@ -176,6 +187,8 @@
 		}
 
 
+		// SETS
+
 		public function getSet ( $key )
 		{
 			$this->_predis->smembers( $key );
@@ -184,7 +197,7 @@
 
 		public function addToSet ( $key, $value )
 		{
-			$this->_predis->sadd ( $key, $value );
+			$this->_predis->sadd ( func_get_args() );
 		}
 
 
@@ -206,9 +219,12 @@
 		}
 
 
-		public function addToSortedSet ( $key, $value )
+
+		// SORTED SETS
+
+		public function addToSortedSet ( $key, $values )
 		{
-			$this->_predis->zadd ( $key, $value );
+			$this->_predis->zadd ( $key, $values );
 		}
 
 
@@ -222,6 +238,52 @@
 		{
 			$this->_predis->zcard( $key );
 		}		
+
+
+		public function countSortedSetByScore ( $key, $min, $max )
+		{
+			$this->_predis->zcard( $key );
+		}
+
+
+		public function getSortedSetByLex ( $key, $min, $max, $start = 0, $stop = -1 )
+		{
+			$this->_predis->zrangebylex( $key,  $min, $max, $start, $stop );
+		}
+
+
+		public function getSortedSetByScore ( $key, $min, $max, $start = 0, $stop = -1 )
+		{
+			$this->_predis->zrangebyscore( $key,  $min, $max, $start, $stop );
+		}
+
+
+
+		// GEO
+		
+		public function addGeoItem ( $key, $lat, $lng, $value )
+		{
+			$this->_predis->geoadd( $key, $lng, $lat, $value );
+		}
+
+
+		public function getGeoItemsDistance ( $key, $value1, $value2, $unit = 'm' )
+		{
+			$this->_predis->geodist( $key, $value1, $value2, $unit );
+		}
+
+
+		public function getGeoItemsHash ( $key, $values )
+		{
+			$this->_predis->geohash( $key, $values );
+		}
+
+
+		public function getGeoItemsPosition ( $key, $values )
+		{
+			$this->_predis->geopos( $key, $values );
+		}
+
 
 	}
 	
