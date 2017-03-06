@@ -260,7 +260,7 @@
 
 
 		// GEO
-		
+
 		public function addGeoItem ( $key, $lat, $lng, $value )
 		{
 			$this->_predis->geoadd( $key, $lng, $lat, $value );
