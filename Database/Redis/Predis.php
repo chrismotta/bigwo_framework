@@ -224,7 +224,7 @@
 
 		public function addToSortedSet ( $key, $value )
 		{
-			$this->_predis->zadd ( $key, $values );
+			$this->_predis->zadd ( $key, $value );
 		}
 
 
