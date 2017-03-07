@@ -129,7 +129,6 @@
 		}
 
 
-
 	
 		// MAPS
 
@@ -185,6 +184,7 @@
 		{
 			$this->_predis->hstrlen( $key, $field );
 		}
+
 
 
 		// SETS
@@ -273,9 +273,9 @@
 		}
 
 
-		public function getGeoItemsHash ( $key, $values )
+		public function getGeoItemHash ( $key, $value )
 		{
-			$this->_predis->geohash( $key, $values );
+			$this->_predis->geohash( $key, $value );
 		}
 
 

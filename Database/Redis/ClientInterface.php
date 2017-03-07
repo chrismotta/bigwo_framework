@@ -22,6 +22,16 @@
 
 
 
+		// GEO ITEMS
+
+		public function addGeoItem ( $key, $lat, $lng, $value );
+
+		public function getGeoItemsDistance ( $key, $value1, $value2, $unit = 'm' );
+
+		public function getGeoItemHash ( $key, $value );
+
+		public function getGeoItemsPosition ( $key, $values );
+
 	}
 	
 ?>
