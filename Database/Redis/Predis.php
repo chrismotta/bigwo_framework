@@ -125,7 +125,7 @@
 
 		public function getListLength ( $key )
 		{
-			$this->_predis->llen( $key );
+			return $this->_predis->llen( $key );
 		}
 
 
@@ -146,25 +146,25 @@
 
 		public function getMapField ( $key, $field )
 		{
-			$this->_predis->hget( $key, $field );	
+			return $this->_predis->hget( $key, $field );	
 		}
 
 
 		public function mapFieldExists ( $key, $field )
 		{
-			$this->_predis->hexists( $key, $field );
+			return $this->_predis->hexists( $key, $field );
 		}
 
 
 		public function getMap ( $key )
 		{
-			$this->_predis->hgetall( $key );
+			return $this->_predis->hgetall( $key );
 		}
 
 
 		public function getMapFieldCount ( $key )
 		{
-			$this->_predis->hlen( $key );
+			return $this->_predis->hlen( $key );
 		}
 
 
@@ -182,7 +182,7 @@
 
 		public function getMapFieldLength ( $key, $field )
 		{
-			$this->_predis->hstrlen( $key, $field );
+			return $this->_predis->hstrlen( $key, $field );
 		}
 
 
@@ -191,7 +191,7 @@
 
 		public function getSet ( $key )
 		{
-			$this->_predis->smembers( $key );
+			return $this->_predis->smembers( $key );
 		}
 
 
@@ -203,7 +203,7 @@
 
 		public function isInSet ( $key, $value )
 		{
-			$this->_predis->sismember( $key, $value );
+			return $this->_predis->sismember( $key, $value );
 		}
 
 
@@ -215,7 +215,7 @@
 
 		public function getSetLength ( $key )
 		{
-			$this->_predis->scard( $key );
+			return $this->_predis->scard( $key );
 		}
 
 
@@ -236,25 +236,25 @@
 
 		public function getSortedSetLength ( $key )
 		{
-			$this->_predis->zcard( $key );
+			return $this->_predis->zcard( $key );
 		}		
 
 
 		public function countSortedSetByScore ( $key, $min, $max )
 		{
-			$this->_predis->zcard( $key );
+			return $this->_predis->zcard( $key );
 		}
 
 
 		public function getSortedSetByLex ( $key, $min, $max, $start = 0, $stop = -1 )
 		{
-			$this->_predis->zrangebylex( $key,  $min, $max, $start, $stop );
+			return $this->_predis->zrangebylex( $key,  $min, $max, $start, $stop );
 		}
 
 
 		public function getSortedSetByScore ( $key, $min, $max, $start = 0, $stop = -1 )
 		{
-			$this->_predis->zrangebyscore( $key,  $min, $max, $start, $stop );
+			return $this->_predis->zrangebyscore( $key,  $min, $max, $start, $stop );
 		}
 
 
@@ -269,19 +269,19 @@
 
 		public function getGeoItemsDistance ( $key, $value1, $value2, $unit = 'm' )
 		{
-			$this->_predis->geodist( $key, $value1, $value2, $unit );
+			return $this->_predis->geodist( $key, $value1, $value2, $unit );
 		}
 
 
 		public function getGeoItemHash ( $key, $value )
 		{
-			$this->_predis->geohash( $key, $value );
+			return $this->_predis->geohash( $key, $value );
 		}
 
 
 		public function getGeoItemsPosition ( $key, $values )
 		{
-			$this->_predis->geopos( $key, $values );
+			return $this->_predis->geopos( $key, $values );
 		}
 
 
