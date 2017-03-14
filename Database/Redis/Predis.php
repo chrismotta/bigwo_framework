@@ -170,7 +170,10 @@
 
 		public function incrementMapField ( $key, $field, $by = 1 )
 		{
-			$this->_predis->hincrby( $key, $field, $by );
+			if ( is_float($by) )
+				$this->_predis->hincrbyfloat( $key, $field, $by );
+			else
+				$this->_predis->hincrby( $key, $field, $by );
 		}
 
 

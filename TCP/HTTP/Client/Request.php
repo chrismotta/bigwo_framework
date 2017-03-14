@@ -6,7 +6,7 @@
 
 
 	
-	class Request extends Framework\TCP\Connection implements RequestInterface
+	class Request extends Framework\ObjectAbstract  implements RequestInterface
 	{
 		protected $_url;
 		protected $_method;

@@ -42,7 +42,7 @@
 
 			if ( !$this->_singleHandler )
 			{
-				$this->_singleHandler = \curl_init( $request->getURI() );			
+				$this->_singleHandler = \curl_init( $request->getURL() );			
 			}		
 
             $this->_setOptions( $request, $this->_singleHandler );
@@ -89,50 +89,50 @@
             $remote_port = null;            
 
 			$headerSize = \curl_getinfo( $handler, \CURLINFO_HEADER_SIZE );						
-			$headerParts = Packages\Type\StringHelper::split( Packages\Type\StringHelper::getSubstring( $response, 0, $headerSize ), "(/n)" );
+			$headerParts = \preg_split( "(/n)", \substr( $response, 0, $headerSize ) );
 			$headers['status'] = $headerParts[0];            
 			
-			array_shift( $headers );
+			\array_shift( $headers );
 			
 			foreach ( $headerParts as $header )
 			{
-				$half = Packages\Type\StringHelper::split( $header, "(:)" );
-				$name = Packages\Type\StringHelper::removeWhitespaces( $half[0] );
-				$value = Packages\Type\StringHelper::removeWhitespaces( $half[1] );
+				$half = \preg_split ( "(:)", $header );
+				$name = \str_replace( ' ', '', $half[0] );
+				$value = \str_replace( ' ', '', $half[1] );
 				
 				$headers[$name] = $value;
 			}
 
-			if ( Packages\Type\ArrayHelper::hasKey( $headers, 'cookie' ) )
+			if ( isset( $headers['cookie'] ) )
 			{
-				$cookieParts = Packages\Type\StringHelper::split( $headers['cookie'], "(;)" );
+				$cookieParts = \preg_split( "(;)", $headers['cookie'] );
 				
 				foreach ( $cookieParts as $cookie )
 				{
-					$half = Packages\Type\StringHelper::split( $cookie, "(:)" );
-					$name = Packages\Type\StringHelper::removeWhitespaces( $half[0] );
-					$value = Packages\Type\StringHelper::removeWhitespaces( $half[1] );
+					$half = \preg_split( "(:)", $cookie );
+					$name = \str_replace( ' ', '', $half[0] );
+					$value = \str_replace( ' ', '', $half[1] );
 					
 					$cookies[$name] = $value;
 				}
 			}
 
-            if ( Packages\Script\Helper::isConstantDefined( '\CURLINFO_PRIMARY_IP' ) )
+            if ( defined( '\CURLINFO_PRIMARY_IP' ) )
             {
                 $remote_ip = \curl_getinfo( $handler, \CURLINFO_PRIMARY_IP );
             }
             
-            if ( Packages\Script\Helper::isConstantDefined( '\CURLINFO_PRIMARY_PORT' ) )
+            if ( defined( '\CURLINFO_PRIMARY_PORT' ) )
             {
                 $remote_port = \curl_getinfo( $handler, \CURLINFO_PRIMARY_PORT );
             }        
 
-            if ( Packages\Script\Helper::isConstantDefined( '\CURLINFO_LOCAL_IP' ) )
+            if ( defined( '\CURLINFO_LOCAL_IP' ) )
             {
                 $local_ip = \curl_getinfo( $handler, \CURLINFO_LOCAL_IP );                
             }
             
-            if ( Packages\Script\Helper::isConstantDefined( '\CURLINFO_LOCAL_PORT' ) )
+            if ( defined( '\CURLINFO_LOCAL_PORT' ) )
             {
                 $local_port = \curl_getinfo( $handler, \CURLINFO_LOCAL_PORT );
             }              
@@ -196,7 +196,7 @@
 
 		private function _setOptions( Request $request, $handler ) 
 		{
-			\curl_setopt ( $handler, \CURLOPT_URL, $request->getURI() );
+			\curl_setopt ( $handler, \CURLOPT_URL, $request->getURL() );
 			\curl_setopt ( $handler, \CURLOPT_RETURNTRANSFER, true );
 			\curl_setopt ( $handler, \CURLOPT_VERBOSE, 1 );
 			\curl_setopt ( $handler, \CURLOPT_HEADER, 1 );	
@@ -290,7 +290,7 @@
 
 			$headers = $request->getHeaders();
             
-			if ( !Packages\Type\ArrayHelper::isEmpty( $headers  ) )
+			if ( !empty( $headers  ) )
 			{
                 $curlHeaders = array();
                 
