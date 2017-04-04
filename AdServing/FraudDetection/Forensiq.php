@@ -75,9 +75,10 @@
 
 		public function getRiskLevel ( )
 		{
+
 			if ( $this->_result )
 			{
-				return $this->_result['items'][0]['riskScore'];
+				return (float)$this->_result['items'][0]['riskScore'];
 			}
 
 			return null;

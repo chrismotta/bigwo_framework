@@ -225,9 +225,9 @@
 
 		// SORTED SETS
 
-		public function addToSortedSet ( $key, $value )
+		public function addToSortedSet ( $key, $score, $value )
 		{
-			$this->_predis->zadd ( $key, $value );
+			$this->_predis->zadd ( $key, $score, $value );
 		}
 
 
@@ -237,6 +237,11 @@
 		}
 
 
+		public function removeFromSortedSetByScore ( $key, $min, $max )
+		{
+			$this->_predis->zremrangebyscore( $key, $min, $max );
+		}
+
 		public function getSortedSetLength ( $key )
 		{
 			return $this->_predis->zcard( $key );
@@ -245,7 +250,13 @@
 
 		public function countSortedSetByScore ( $key, $min, $max )
 		{
-			return $this->_predis->zcard( $key );
+			return $this->_predis->zcount( $key );
+		}
+
+
+		public function getSortedSet( $key, $start = 0, $stop = -1 )
+		{
+			return $this->_predis->zrange( $key, $start, $stop );
 		}
 
 
@@ -255,9 +266,24 @@
 		}
 
 
-		public function getSortedSetByScore ( $key, $min, $max, $start = 0, $stop = -1 )
+		public function getSortedSetByScore ( 
+			$key, 
+			$min, 
+			$max, 
+			$start = 0, 
+			$stop = -1, 
+			$retrieve_scores = false 
+		)
 		{
-			return $this->_predis->zrangebyscore( $key,  $min, $max, $start, $stop );
+			return $this->_predis->zrangebyscore( 
+				$key,  
+				$min, 
+				$max, 
+				[
+					'WITHSCORES' => $retrieveScores, 
+					'LIMIT' => [$start, $stop] 
+				]
+			);
 		}
 
 

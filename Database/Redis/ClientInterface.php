@@ -10,15 +10,21 @@
 
 		// SORTED SETS
 
-		public function addToSortedSet ( $key, $value );
+		public function addToSortedSet ( $key, $score, $value );
 
 		public function removeFromSortedSet ( $key, $value );
 
+		public function removeFromSortedSetByScore ( $key, $min, $max );
+
 		public function getSortedSetLength ( $key );
+
+		public function countSortedSetByScore ( $key, $min, $max );
+
+		public function getSortedSet( $key, $start = 0, $stop = -1 );
 
 		public function getSortedSetByLex ( $key, $min, $max, $start = 0, $stop = -1 );
 
-		public function getSortedSetByScore ( $key, $min, $max, $start = 0, $stop = -1 );
+		public function getSortedSetByScore ( $key, $min, $max, $start = 0, $stop = -1, $retrieve_scores = false );
 
 
 
