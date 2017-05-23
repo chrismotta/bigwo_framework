@@ -38,7 +38,7 @@
 			if( !$this->_data['mobileCarrierName'] || $this->_data['mobileCarrierName']=='-' )
 				return 'wifi';
 			else
-				return '3g';
+				return 'mobile';
 		}
 
 
