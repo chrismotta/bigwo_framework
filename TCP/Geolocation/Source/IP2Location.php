@@ -27,7 +27,7 @@
 				$ip, 
 				array(
 					\IP2Location\Database::MOBILE_CARRIER_NAME,
-					\IP2Location\Database::COUNTRY_NAME
+					\IP2Location\Database::COUNTRY_CODE
 				)
 			);
 		}
