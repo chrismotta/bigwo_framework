@@ -44,7 +44,6 @@
 
 		public function getCountryCode ( )
 		{
-			var_dump($this->_data);
 			if ( $this->_data['countryCode'] == '-')
 				return null;
 
