@@ -44,12 +44,19 @@
 
 		public function getCountryCode ( )
 		{
+			var_dump($this->_data);
+			if ( $this->_data['countryCode'] == '-')
+				return null;
+
 			return $this->_data['countryCode'];
 		}
 
 
 		public function getMobileCarrier ( )
 		{
+			if ( $this->_data['mobileCarrierName'] == '-')
+				return null;
+
 			return $this->_data['mobileCarrierName'];
 		}
 
