@@ -18,6 +18,12 @@
 		}
 
 
+		public function useDatabase ( $id )
+		{
+			$this->_predis->select( $id );
+		}
+
+
 		public function expireAt ( $key, $timestamp )
 		{
 			$this->_predis->expireat( $key,  $timestamp );
