@@ -286,7 +286,7 @@
 				$min, 
 				$max, 
 				[
-					'WITHSCORES' => $retrieveScores, 
+					'WITHSCORES' => $retrieve_scores, 
 					'LIMIT' => [$start, $stop] 
 				]
 			);
