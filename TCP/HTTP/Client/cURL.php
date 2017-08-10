@@ -137,7 +137,8 @@
                 $local_port = \curl_getinfo( $handler, \CURLINFO_LOCAL_PORT );
             }              
             
-			return array(                                
+			return array(
+				'http_code' => \curl_getinfo($handler, CURLINFO_HTTP_CODE),                                
 				'local_ip' => $local_ip,
 				'local_port' => $local_port,
 				'remote_ip' => $remote_ip,

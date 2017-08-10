@@ -12,7 +12,7 @@
 		protected $_httpRequest;
 		protected $_urlBase;
 		protected $_result;
-
+		protected $_status;
 
 		public function __construct ( 
 			Framework\TCP\HTTP\ClientInterface  $httpClient,
@@ -64,6 +64,14 @@
 			$this->_httpRequest->setUrl( $url );
 			$response = $this->_httpClient->send( $this->_httpRequest );
 
+			if ( !$response )
+			{
+				$this->_status = 0;
+				return false;
+			}
+
+			$this->_status = $response->getStatus();
+
 			$this->_result = \json_decode( $response->getBody(), true );
 
 			if ( $this->_result )					
@@ -75,13 +83,18 @@
 
 		public function getRiskLevel ( )
 		{
-
 			if ( $this->_result )
 			{
 				return (float)$this->_result['items'][0]['riskScore'];
 			}
 
 			return null;
+		}
+
+
+		public function getResponseStatus ( )
+		{
+			return $this->_status;
 		}
 	}
 
