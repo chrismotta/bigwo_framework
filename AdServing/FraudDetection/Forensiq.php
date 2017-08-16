@@ -44,14 +44,14 @@
 			}
 			else
 			{
-				throw new \Exception ( 'Param required: request_type' );			
+				throw new \Exception ( 'Param required: request_type' );
 			}
 
 			if ( !isset( $params['ip_address'] ) )
 				throw new \Exception ( 'Param required: ip_address' );
 
 			if ( !isset( $params['session_id'] ) )
-				throw new \Exception ( 'Param required: session_id' );							
+				throw new \Exception ( 'Param required: session_id' );
 
 			if ( !isset( $params['source_id'] ) )
 				throw new \Exception ( 'Param required: source_id' );
@@ -74,7 +74,7 @@
 
 			$this->_result = \json_decode( $response->getBody(), true );
 
-			if ( $this->_result )					
+			if ( $this->_result && is_array($this->_result) ) 
 				return true;
 			else
 				return false;
@@ -83,7 +83,7 @@
 
 		public function getRiskLevel ( )
 		{
-			if ( $this->_result )
+			if ( $this->_result && is_array($this->_result) ) 
 			{
 				return (float)$this->_result['items'][0]['riskScore'];
 			}
