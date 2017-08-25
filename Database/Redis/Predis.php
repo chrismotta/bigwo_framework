@@ -162,9 +162,12 @@
 		}
 
 
-		public function getMap ( $key )
+		public function getMap ( $key, array $fields = null )
 		{
-			return $this->_predis->hgetall( $key );
+			if ( $fields )
+				return $this->_predis->hmget( $key, $fields );
+			else
+				return $this->_predis->hgetall( $key );	
 		}
 
 
