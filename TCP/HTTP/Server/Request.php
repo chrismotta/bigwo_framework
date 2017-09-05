@@ -70,7 +70,6 @@
 
             $this->_pathElements = \preg_split( '(\/|\?)', $this->_uri, -1 );
 
-
             $finalElement = \end($this->_pathElements);
             if ( $finalElement=='' || ($this->_query && $this->_query == $finalElement) )
             {
@@ -111,17 +110,16 @@
 
             switch ( $this->getHeader('Content-Type') )
             {
-                case 'application/x-www-form-urlencoded':
-                case 'multipart/form-data':
-                case null:
+                case 'text/json':
+                case 'application/json':
+                break;
+                default:
                     switch( $this->getMethod() )
                     {
                         case 'POST':
-                        case 'post':
                             $this->_data = $_POST;
                         break;
                         case 'GET':
-                        case 'get':
                             $this->_data = $_GET;
                         break;
                         default:
@@ -188,12 +186,12 @@
 
 
 		public function getParam ( $name )
-		{						
+		{					
 			if ( isset( $this->_data[$name] ) )
 			{                
                 return $this->_data[$name];
 			}
-                         
+
             return null;
 		}
 
