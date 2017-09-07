@@ -26,6 +26,8 @@
 
 		public function getSortedSetByScore ( $key, $min, $max, $start = 0, $stop = -1, $retrieve_scores = false );
 
+		public function getSortedSetElementRank ( $key, $value );
+
 
 
 		// GEO ITEMS

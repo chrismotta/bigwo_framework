@@ -295,6 +295,11 @@
 			);
 		}
 
+		public function getSortedSetElementRank ( $key, $value )
+		{
+			return $this->_predis->zrank( $key, $value );
+		}
+
 
 
 		// GEO
