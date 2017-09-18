@@ -263,9 +263,14 @@
 		}
 
 
-		public function getSortedSet( $key, $start = 0, $stop = -1 )
+		public function getSortedSet( $key, $start = 0, $stop = -1, $retrieve_scores = false )
 		{
-			return $this->_predis->zrange( $key, $start, $stop );
+			return $this->_predis->zrange( 
+				$key, $start, $stop,
+				[
+					'WITHSCORES' => $retrieve_scores
+				]				
+			);
 		}
 
 
@@ -299,7 +304,6 @@
 		{
 			return $this->_predis->zrank( $key, $value );
 		}
-
 
 
 		// GEO
