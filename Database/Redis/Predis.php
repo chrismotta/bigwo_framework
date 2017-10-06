@@ -98,7 +98,7 @@
 
 		public function remove ( $key )
 		{
-			$this->_predis->set( $key, $value );
+			$this->_predis->del( $key );
 		}
 
 
