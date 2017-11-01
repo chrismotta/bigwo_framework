@@ -305,6 +305,10 @@
 			return $this->_predis->zrank( $key, $value );
 		}
 
+		public function incrementSortedSetElementScore ( $key, $value, $by =1 )
+		{
+			return $this->_predis->zincrby( $key, $by, $value );
+		}
 
 		// GEO
 
