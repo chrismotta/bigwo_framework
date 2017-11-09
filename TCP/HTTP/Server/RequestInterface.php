@@ -18,7 +18,9 @@
 
         public function getURI ( ); 
 
-        public function getQueryString ( );    
+        public function getQueryString ( );
+
+        public function getReferer ( ); 
 
 	}
 	

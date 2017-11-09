@@ -28,6 +28,7 @@
         protected $_query;        
         protected $_pathElements;
         protected $_body;
+        protected $_referer;
 
 
 		public function __construct ( )
@@ -57,16 +58,16 @@
                 }               
             }
 
-			$this->_timestamp = $_SERVER['REQUEST_TIME'];
-            $this->_cookies = $_COOKIE;
-            $this->_query = $_SERVER['QUERY_STRING'];            
-            $this->_method = strtoupper( $_SERVER['REQUEST_METHOD'] );
-            $this->_sourceIp = $_SERVER['REMOTE_ADDR'];
-            $this->_sourcePort = $_SERVER['REMOTE_PORT'];
-            $this->_destinationIp = $_SERVER['SERVER_ADDR'];
+            $this->_timestamp       = $_SERVER['REQUEST_TIME'];
+            $this->_cookies         = $_COOKIE;
+            $this->_query           = $_SERVER['QUERY_STRING'];            
+            $this->_method          = strtoupper( $_SERVER['REQUEST_METHOD'] );
+            $this->_sourceIp        = $_SERVER['REMOTE_ADDR'];
+            $this->_sourcePort      = $_SERVER['REMOTE_PORT'];
+            $this->_destinationIp   = $_SERVER['SERVER_ADDR'];
             $this->_destinationHost = $_SERVER['SERVER_NAME'];
             $this->_destinationPort = $_SERVER['SERVER_PORT'];
-            $this->_uri = $_SERVER['REQUEST_URI'];
+            $this->_uri             = $_SERVER['REQUEST_URI'];
 
             $this->_pathElements = \preg_split( '(\/|\?)', $this->_uri, -1 );
 
@@ -84,6 +85,9 @@
             {
                 $this->_agent = $_SERVER['HTTP_USER_AGENT'];
             }     
+
+            if ( isset($_SERVER['HTTP_REFERER']) )
+                $this->_referer = $_SERVER['HTTP_REFERER'];
 
             if ( isset($_SERVER['REMOTE_HOST']) )
             {
@@ -211,6 +215,11 @@
 		{
 			return $this->_agent;
 		}
+
+        public function getReferer ( )
+        {
+            return $this->_referer;
+        }
 		
 
 		public function getMethod ( )
