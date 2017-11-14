@@ -24,6 +24,18 @@
 		}
 
 
+		public function beginTransaction()
+		{
+			$this->_predis->multi();
+		}
+
+
+		public function commit()
+		{
+			return $this->_predis->exec();
+		}
+
+
 		public function expireAt ( $key, $timestamp )
 		{
 			$this->_predis->expireat( $key,  $timestamp );
