@@ -40,9 +40,16 @@
 			if ( $this->_ISPRecord )
 				unset( $this->_ISPRecord );			
 
-			$this->_countryRecord  = $this->_countryReader->country($ip);
-			$this->_ISPRecord 	   = $this->_ISPReader->isp($ip);
-			$this->_connTypeRecord = $this->_connTypeReader->connectionType($ip);
+			try
+			{
+				$this->_countryRecord  = $this->_countryReader->country($ip);
+				$this->_ISPRecord 	   = $this->_ISPReader->isp($ip);
+				$this->_connTypeRecord = $this->_connTypeReader->connectionType($ip);
+			}
+			catch ( GeoIp2\Exception\AddressNotFoundException $e )
+			{
+				$this->_exception  = $e;
+			}
 		}
 
 
@@ -72,7 +79,7 @@
 		public function getCountryCode ( )
 		{
 			if ( $this->_countryRecord )
-				return $this->_countryRecord->country->isoCode;
+				return strtolower($this->_countryRecord->country->isoCode);
 
 			return null;
 		}
